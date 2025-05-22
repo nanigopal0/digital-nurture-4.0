@@ -36,4 +36,24 @@ having count(f.event_id) >= 10
 order by avg(f.rating) desc
 limit 1;
 
+-- 3. Inactive Users 
+-- Retrieve users who have not registered for any events in the last 90 days.
+
+SELECT u.user_id, u.full_name
+FROM users u
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM registrations r
+    WHERE r.user_id = u.user_id
+      AND r.registration_date >= CURRENT_DATE - INTERVAL 90 DAY
+);
+
+
+
+
+
+
+
+
+
 
