@@ -28,3 +28,12 @@ ORDER BY E.start_date;
 -- 2. Top Rated Events 
 -- Identify events with the highest average rating, considering only those that have received at 
 -- least 10 feedback submissions.
+
+select e.event_id, avg(f.rating) from feedback f 
+join events e on e.event_id = f.event_id
+group by f.event_id
+having count(f.event_id) >= 10
+order by avg(f.rating) desc
+limit 1;
+
+
